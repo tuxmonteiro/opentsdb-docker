@@ -1,4 +1,4 @@
-FROM janeczku/alpine-kubernetes:3.2
+FROM alpine:3.6
 
 RUN apk --update add \
     rsyslog \
@@ -7,9 +7,7 @@ RUN apk --update add \
     make \
     wget \
   && : adding gnuplot for graphing \
-  && apk add gnuplot \
-    --update-cache \
-    --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
+  && apk add gnuplot
 
 ENV TSDB_VERSION 2.3.0
 ENV HBASE_VERSION 1.1.3
@@ -72,3 +70,5 @@ RUN ln -s /opt/bin/start_opentsdb.sh /etc/services.d/tsdb/run
 EXPOSE 60000 60010 60030 4242 16010
 
 VOLUME ["/data/hbase", "/tmp"]
+
+CMD ["/opt/bin/start_opentsdb.sh"]
