@@ -11,7 +11,7 @@ RUN apk --update add \
     --update-cache \
     --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
 
-ENV TSDB_VERSION 2.2.0
+ENV TSDB_VERSION 2.3.0
 ENV HBASE_VERSION 1.1.3
 ENV JAVA_HOME /usr/lib/jvm/java-1.7-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.7-openjdk/bin/
@@ -53,6 +53,7 @@ RUN wget -O hbase-${HBASE_VERSION}.bin.tar.gz http://archive.apache.org/dist/hba
     mv hbase-${HBASE_VERSION} /opt/hbase && \
     rm hbase-${HBASE_VERSION}.bin.tar.gz
 
+ADD docker/opentsdb.conf /opt/opentsdb/
 ADD docker/hbase-site.xml /opt/hbase/conf/
 ADD docker/start_opentsdb.sh /opt/bin/
 ADD docker/create_tsdb_tables.sh /opt/bin/
